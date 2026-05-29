@@ -1,0 +1,2565 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ML monitoring for tabular, LLM, and agent systems — in one library.">
+      
+      
+      
+        <link rel="canonical" href="https://kevek-ml.github.io/ayn-ml/metrics/">
+      
+      
+        <link rel="prev" href="../schemas/">
+      
+      
+        <link rel="next" href="../advisor/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Metrics - ayn-ml</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tabular-metrics-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ayn-ml" class="md-header__button md-logo" aria-label="ayn-ml" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ayn-ml
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Metrics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Kevek-ml/ayn-ml" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Kevek-ml/ayn-ml
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quickstart/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Quick Start
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../schemas/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../pro/" class="md-tabs__link">
+          
+  
+  
+  Pro
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ayn-ml" class="md-nav__button md-logo" aria-label="ayn-ml" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    ayn-ml
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Kevek-ml/ayn-ml" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Kevek-ml/ayn-ml
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-ref" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick ref
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick ref">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drift-distribution-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drift — distribution distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistics-descriptive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistics — descriptive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-estimation-without-ground-truth-cbpe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance estimation — without ground truth (CBPE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precision-recall-f1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        precision, recall, f1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        r2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drift-distribution-distance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drift — distribution distance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Drift — distribution distance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#psi-population-stability-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        psi — Population Stability Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wasserstein-earth-movers-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wasserstein — Earth Mover's Distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmd-maximum-mean-discrepancy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mmd — Maximum Mean Discrepancy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ks_2samp-kolmogorov-smirnov-two-sample-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ks_2samp — Kolmogorov-Smirnov two-sample test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttest-welchs-t-test-default-students-t-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ttest — Welch's t-test (default) / Student's t-test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mannwhitney-mann-whitney-u-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mannwhitney — Mann-Whitney U test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#levene-levenes-test-for-variance-equality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        levene — Levene's test for variance equality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cramervonmises-cramer-von-mises-two-sample-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cramervonmises — Cramér-von Mises two-sample test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#statistics-descriptive_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistics — descriptive
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Statistics — descriptive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top_category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        top_category
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-estimation-without-ground-truth-cbpe_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance estimation — without ground truth (CBPE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance estimation — without ground truth (CBPE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cbpe_f1-cbpe_precision-cbpe_recall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cbpe_f1, cbpe_precision, cbpe_recall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fairness-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fairness metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fairness metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-specfeature_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using spec.feature_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demographic_parity-demographic-parity-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        demographic_parity — Demographic Parity Difference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equalized_odds-equalized-odds-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        equalized_odds — Equalized Odds Difference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disparate_impact-disparate-impact-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        disparate_impact — Disparate Impact Ratio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nlp-llm-planned-pip-install-ayn-mlnlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NLP / LLM (planned — pip install ayn-ml[nlp])
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#premium-metrics-ayn-ml-pro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Premium Metrics — ayn-ml-pro
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Premium Metrics — ayn-ml-pro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#safety-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safety metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm-judge-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM-judge metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-evaluation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent evaluation metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm-metric-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM metric timeouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advisor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metric Advisor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-layer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pro
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../explain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explain (SHAP + LLM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sinks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sinks (Slack)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/advisor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advisor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/stores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/sinks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sinks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/renderers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Renderers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-ref" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick ref
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick ref">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drift-distribution-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drift — distribution distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistics-descriptive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistics — descriptive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-estimation-without-ground-truth-cbpe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance estimation — without ground truth (CBPE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precision-recall-f1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        precision, recall, f1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        r2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drift-distribution-distance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drift — distribution distance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Drift — distribution distance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#psi-population-stability-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        psi — Population Stability Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wasserstein-earth-movers-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wasserstein — Earth Mover's Distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmd-maximum-mean-discrepancy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mmd — Maximum Mean Discrepancy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ks_2samp-kolmogorov-smirnov-two-sample-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ks_2samp — Kolmogorov-Smirnov two-sample test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttest-welchs-t-test-default-students-t-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ttest — Welch's t-test (default) / Student's t-test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mannwhitney-mann-whitney-u-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mannwhitney — Mann-Whitney U test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#levene-levenes-test-for-variance-equality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        levene — Levene's test for variance equality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cramervonmises-cramer-von-mises-two-sample-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cramervonmises — Cramér-von Mises two-sample test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#statistics-descriptive_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistics — descriptive
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Statistics — descriptive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top_category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        top_category
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-estimation-without-ground-truth-cbpe_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance estimation — without ground truth (CBPE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance estimation — without ground truth (CBPE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cbpe_f1-cbpe_precision-cbpe_recall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cbpe_f1, cbpe_precision, cbpe_recall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fairness-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fairness metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fairness metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-specfeature_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using spec.feature_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demographic_parity-demographic-parity-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        demographic_parity — Demographic Parity Difference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equalized_odds-equalized-odds-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        equalized_odds — Equalized Odds Difference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disparate_impact-disparate-impact-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        disparate_impact — Disparate Impact Ratio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nlp-llm-planned-pip-install-ayn-mlnlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NLP / LLM (planned — pip install ayn-ml[nlp])
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#premium-metrics-ayn-ml-pro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Premium Metrics — ayn-ml-pro
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Premium Metrics — ayn-ml-pro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#safety-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safety metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm-judge-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM-judge metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-evaluation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent evaluation metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm-metric-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM metric timeouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tabular-metrics-reference">Tabular Metrics Reference<a class="headerlink" href="#tabular-metrics-reference" title="Permanent link">&para;</a></h1>
+<p>All metrics are invoked via <code>get_metric(name).compute(cur, ref, schema, spec)</code> and
+ret a <code>MetricResult</code> with fields <code>val</code>, <code>status</code>, <code>effect_size</code>, and <code>effect_size_label</code>.</p>
+<h2 id="quick-ref">Quick ref<a class="headerlink" href="#quick-ref" title="Permanent link">&para;</a></h2>
+<h3 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h3>
+<p>| Name | What it measures | Requires ref | sklearn required |
+| <code>accuracy</code> | Fraction of correct predictions | No | Yes |
+| <code>precision</code> | TP / (TP + FP) | No | Yes |
+| <code>recall</code> | TP / (TP + FN) | No | Yes |
+| <code>f1</code> | Harmonic mean of precision and recall | No | Yes |
+| <code>log_loss</code> | Cross-entropy loss | No | Yes |
+| <code>auc</code> | Area under the ROC curve | No | Yes |
+| <code>aucpr</code> | Area under the precision-recall curve | No | Yes |
+| <code>brier</code> | Mean squared err of calibrated probabilities | No | Yes |
+| <code>mse</code> | Mean squared err | No | No |
+| <code>mae</code> | Mean absolute err | No | No |
+| <code>r2</code> | Coefficient of determination | No | No |
+| <code>mape</code> | Mean absolute percentage err | No | No |</p>
+<h3 id="drift-distribution-distance">Drift — distribution distance<a class="headerlink" href="#drift-distribution-distance" title="Permanent link">&para;</a></h3>
+<p>| Name | What it measures | Numeric | Categorical | Requires <code>feature_name</code> |
+| <code>psi</code> | Population Stability Index on a feature | Yes | Yes | Yes |
+| <code>wasserstein</code> | Earth Mover's Distance on a feature | Yes | No | Yes |
+| <code>mmd</code> | Maximum Mean Discrepancy (RBF kernel) on a feature | Yes | No | Yes |
+| <code>target_drift</code> | PSI on <code>schema.label_col</code> — detects shifts in P(Y) | Yes | Yes | No |
+| Name | What it tests | Effect size | <code>effect_size_label</code> |
+| <code>ks_2samp</code> | CDF equality (KS statistic) | KS D-statistic | <code>ks_statistic</code> |
+| <code>ttest</code> | Mean equality (Welch's by default) | Cohen's d | <code>cohen_d</code> |
+| <code>mannwhitney</code> | Rank distribution equality | Cliff's delta | <code>cliff_delta</code> |
+| <code>levene</code> | Variance equality | Variance ratio | <code>variance_ratio</code> |
+| <code>cramervonmises</code> | CDF equality (CvM statistic) | — | — |</p>
+<h3 id="statistics-descriptive">Statistics — descriptive<a class="headerlink" href="#statistics-descriptive" title="Permanent link">&para;</a></h3>
+<p>| Name | What it computes | Requires <code>feature_name</code> |
+| <code>mean</code> | Arithmetic mean | Yes |
+| <code>median</code> | 50th percentile | Yes |
+| <code>std</code> | Sample standard deviation (ddof=1) | Yes |
+| <code>skewness</code> | Fisher's skewness | Yes |
+| <code>kurtosis</code> | Excess kurtosis (Fisher's, normal = 0) | Yes |
+| <code>quantile</code> | Arbitrary quantile | Yes |
+| <code>count</code> | Row count (including nulls) | Yes |
+| <code>top_category</code> | Most frequent category (frequency as val) | Yes |</p>
+<h3 id="performance-estimation-without-ground-truth-cbpe">Performance estimation — without ground truth (CBPE)<a class="headerlink" href="#performance-estimation-without-ground-truth-cbpe" title="Permanent link">&para;</a></h3>
+<p>| Name | What it estimates | Requires ref | sklearn required |
+| <code>cbpe_accuracy</code> | Estimated accuracy | Yes | Yes |
+| <code>cbpe_auc</code> | Estimated ROC AUC | Yes | Yes |
+| <code>cbpe_f1</code> | Estimated F1 score | Yes | Yes |
+| <code>cbpe_precision</code> | Estimated precision | Yes | Yes |
+| <code>cbpe_recall</code> | Estimated recall | Yes | Yes |
+| Name | What it measures | Requires <code>feature_name</code> | Requires ref |
+| <code>demographic_parity</code> | Max difference in positive prediction rates across groups | Yes | No |
+| <code>equalized_odds</code> | Max gap in TPR and FPR across groups | Yes | No |
+| <code>disparate_impact</code> | Ratio of lowest to highest positive prediction rate | Yes | No |</p>
+<h2 id="performance-metrics">Performance metrics<a class="headerlink" href="#performance-metrics" title="Permanent link">&para;</a></h2>
+<p>All performance metrics read column names from <code>TabularSchema</code>
+(<code>label_col</code>, <code>prediction_col</code>, <code>proba_col</code>). They do not require a ref
+window — they evaluate only the cur batch.
+accuracy = correct predictions / total predictions
+Reads <code>schema.label_col</code> and <code>schema.prediction_col</code>. Delegates to
+<code>sklearn.metrics.accuracy_score</code>.</p>
+<h3 id="precision-recall-f1"><code>precision</code>, <code>recall</code>, <code>f1</code><a class="headerlink" href="#precision-recall-f1" title="Permanent link">&para;</a></h3>
+<p>precision = TP / (TP + FP)
+f1        = 2 × precision × recall / (precision + recall)
+- <code>average</code> (default <code>"weighted"</code>) — averaging strategy for multi-class:
+  <code>"binary"</code>, <code>"micro"</code>, <code>"macro"</code>, <code>"weighted"</code>, <code>"samples"</code>.
+Delegates to <code>sklearn.metrics.precision_score</code>, <code>recall_score</code>, <code>f1_score</code>.
+log_loss = -1/n × Σ [y log(p) + (1-y) log(1-p)]
+Reads <code>schema.proba_col</code>. Lower is better. Sensitive to overconfident predictions.
+Delegates to <code>sklearn.metrics.log_loss</code>.
+Area under the ROC curve. Reads <code>schema.proba_col</code>.
+- <code>multi_class</code> (default <code>"raise"</code>) — pass <code>"ovr"</code> or <code>"ovo"</code> for multi-class.
+Raises <code>MetricComputeError</code> if the cur batch contains only one class
+(ROC curve undefined).
+Area under the precision-recall curve. More informative than AUC on
+imbalanced datasets. Reads <code>schema.proba_col</code>.
+Raises <code>MetricComputeError</code> if the cur batch contains only one class.
+brier = 1/n × Σ (p_i - y_i)²
+Proper scoring rule for calibration. Range [0, 1]; lower is better.
+Reads <code>schema.proba_col</code>. Delegates to <code>sklearn.metrics.brier_score_loss</code>.
+Standard regression errors. Read <code>schema.label_col</code> and
+<code>schema.prediction_col</code>.
+mse = mean((y_true - y_pred)²)
+mae = mean(|y_true - y_pred|)</p>
+<h3 id="r2"><code>r2</code><a class="headerlink" href="#r2" title="Permanent link">&para;</a></h3>
+<p>r2 = 1 - SS_res / SS_tot
+Range (-∞, 1]; 1 = perfect fit, 0 = mean-only baseline.
+Raises <code>MetricComputeError</code> when all <code>y_true</code> values are identical
+(<code>SS_tot = 0</code>; R² is undefined in that case — not 1.0).
+mape = mean(|y_true - y_pred| / |y_true|) × 100
+<strong>Note:</strong> MAPE is undefined when <code>y_true</code> is zero or near-zero. Rows where
+<code>|y_true| ≤ eps</code> are excluded from the mean and a W is logged.
+- <code>eps</code> (default <code>1e-8</code>) — exclusion threshold for near-zero <code>y_true</code> values.</p>
+<h2 id="drift-distribution-distance_1">Drift — distribution distance<a class="headerlink" href="#drift-distribution-distance_1" title="Permanent link">&para;</a></h2>
+<p>All distance metrics require a ref window and operate on a single
+feature column (<code>spec.feature_name</code>).</p>
+<h3 id="psi-population-stability-index"><code>psi</code> — Population Stability Index<a class="headerlink" href="#psi-population-stability-index" title="Permanent link">&para;</a></h3>
+<p>PSI = Σ (p_cur - p_ref) × ln(p_cur / p_ref)
+Measures how much a feature's distribution has shifted. Supports both
+numeric and categorical features.
+<strong>Numeric features:</strong> bin edges are derived from the <strong>union</strong> of ref
+and cur values so no data points are silently dropped. When cur
+values fall outside the ref range, those bins will have
+<code>p_ref ≈ 0</code> after clipping — their contribution is valid but sensitive to
+the <code>eps</code> param. A W is emitted with the out-of-range count, the
+sensitivity range, and a suggestion to cross-check with <code>wasserstein</code> or
+<code>ks_2samp</code>.
+<strong>Categorical features:</strong> bins are the union of all categories seen in
+either window; new categories in cur receive the full treatment without
+out-of-range warnings.
+- <code>n_bins</code> (default <code>10</code>) — num of bins for numeric features.
+- <code>eps</code> (default <code>1e-4</code>) — zero-clipping floor applied before the log ratio.
+  Controls the PSI contribution of empty ref bins. Changing this by
+  one order of magnitude shifts the out-of-range bin contribution by
+  ~0.7 units — see the W msg for the exact sensitivity range.
+<strong>Interpretation (rule of thumb):</strong>
+- PSI &lt; 0.1 — stable
+- 0.1 ≤ PSI &lt; 0.25 — moderate drift
+- PSI ≥ 0.25 — significant drift
+<strong>Limitation:</strong> PSI on out-of-range bins is sensitive to <code>eps</code>. When the
+W fires, treat the absolute PSI val with caution and validate with
+<code>wasserstein</code> or <code>ks_2samp</code>.
+PSI on <code>schema.label_col</code> — measures how much P(Y) has shifted between
+ref and cur windows.  Does <strong>not</strong> require <code>spec.feature_name</code>.
+<strong>Target type inference</strong> (override with <code>params["treat_as"]</code>):
+- Integer or str labels → categorical PSI (class frequencies)
+- Float labels → numeric PSI (histogram binning)
+- <code>n_bins</code> (default <code>10</code>) — bins for numeric (regression) targets.
+- <code>eps</code> (default <code>1e-4</code> numeric, <code>1e-8</code> categorical) — zero-clipping floor.
+- <code>treat_as</code> (default <code>"auto"</code>) — <code>"numeric"</code> | <code>"categorical"</code> to override dtype inference.
+Same PSI interpretation thresholds as <code>psi</code>:
+- PSI &lt; 0.1 — stable
+- 0.1 ≤ PSI &lt; 0.25 — moderate drift
+- PSI ≥ 0.25 — significant drift
+<strong>Known limitation:</strong> insensitive to symmetric concept drifts (e.g. boundary
+inversion on a balanced dataset leaves P(Y=1) ≈ 0.5, so PSI ≈ 0).
+See the <a href="https://github.com/Kevek-ml/ayn-ml/blob/main/examples/03_cbpe.ipynb">CBPE notebook</a> for scenarios B and D.</p>
+<h3 id="wasserstein-earth-movers-distance"><code>wasserstein</code> — Earth Mover's Distance<a class="headerlink" href="#wasserstein-earth-movers-distance" title="Permanent link">&para;</a></h3>
+<p>Minimum "work" needed to transform the ref distribution into the
+cur distribution. Units are the same as the feature (e.g., "the age
+distribution shifted by 3.4 years on average"). Numeric only.
+No natural threshold — set one based on the feature's domain (e.g.,
+<code>threshold=0.05</code> for a probability score, <code>threshold=5.0</code> for age in years).
+Delegates to <code>scipy.stats.wasserstein_distance</code>.</p>
+<h3 id="mmd-maximum-mean-discrepancy"><code>mmd</code> — Maximum Mean Discrepancy<a class="headerlink" href="#mmd-maximum-mean-discrepancy" title="Permanent link">&para;</a></h3>
+<p>Kernel two-sample statistic. Detects subtle shape differences that
+histogram-based measures can miss (e.g., variance shifts without mean
+shift). Numeric only.
+- <code>max_samples</code> (default <code>500</code>) — caps both arrays before kernel computation
+  to bound O(n²) cost.
+- <code>random_state</code> (default <code>42</code>) — seed for reproducible subsampling.
+Kernel bandwidth is estimated via the median heuristic on the ref data.
+All tests ret the two-tailed <strong>p-value</strong> as <code>val</code>. For threshold-based
+alerting, set <code>spec.threshold</code> and <code>spec.upper_bound=True</code> to fire when
+<code>p-value &lt; threshold</code> (e.g., <code>threshold=0.05</code>).
+All tests require a ref window and <code>spec.feature_name</code>.
+Effect sizes are attached to <code>MetricResult.effect_size</code> alongside a label in
+<code>MetricResult.effect_size_label</code> that identifies the scale. This allows
+downstream code to interpret the num correctly without knowing which
+metric produced it.
+| Metric | <code>effect_size_label</code> | Scale | Rule of thumb |
+| <code>ks_2samp</code> | <code>ks_statistic</code> | [0, 1] | No universal rule; &gt; 0.1 often notable |
+| <code>ttest</code> | <code>cohen_d</code> | (−∞, +∞), sign = direction | &lt; 0.2 small · &lt; 0.5 medium · ≥ 0.8 large |
+| <code>mannwhitney</code> | <code>cliff_delta</code> | [−1, 1] | &lt; 0.11 small · &lt; 0.28 medium · ≥ 0.43 large |
+| <code>levene</code> | <code>variance_ratio</code> | (0, +∞) | 1.0 = no change · &gt; 1.5 or &lt; 0.67 notable |
+| <code>cramervonmises</code> | — | — | No effect size |
+Effect size and p-value complement each other:
+- <strong>Low p-value + small effect</strong> = statistically significant but operationally
+  negligible (common with large n). Do not alert.
+- <strong>Large effect + high p-value</strong> = practically meaningful shift but too few
+  observations to confirm statistically. Investigate the sample.
+- <strong>Both low p-value and large effect</strong> = genuine drift.</p>
+<h3 id="ks_2samp-kolmogorov-smirnov-two-sample-test"><code>ks_2samp</code> — Kolmogorov-Smirnov two-sample test<a class="headerlink" href="#ks_2samp-kolmogorov-smirnov-two-sample-test" title="Permanent link">&para;</a></h3>
+<p>Tests whether two samples come from the same continuous distribution.
+Sensitive to location, scale, and shape differences.
+<code>effect_size</code> = KS D-statistic = max absolute difference between the
+two empirical CDFs. Range [0, 1].
+Delegates to <code>scipy.stats.ks_2samp</code>.</p>
+<h3 id="ttest-welchs-t-test-default-students-t-test"><code>ttest</code> — Welch's t-test (default) / Student's t-test<a class="headerlink" href="#ttest-welchs-t-test-default-students-t-test" title="Permanent link">&para;</a></h3>
+<p>Parametric test for equality of means. Assumes approximately normal data.
+<strong>Default is Welch's (<code>equal_var=False</code>)</strong> — safe when the two groups have
+different variances. Student's t-test (<code>equal_var=True</code>) is slightly more
+powerful when variances are provably equal, but biased otherwise.
+- <code>equal_var</code> (default <code>False</code>) — set to <code>True</code> for Student's t-test.
+<code>effect_size</code> = Cohen's d using the df-weighted pooled standard deviation:
+pooled_std = sqrt(((n1-1)×s1² + (n2-1)×s2²) / (n1+n2-2))
+cohen_d    = (mean_ref - mean_cur) / pooled_std
+Sign convention: positive d means the ref mean is higher than cur.
+Delegates to <code>scipy.stats.ttest_ind</code>.</p>
+<h3 id="mannwhitney-mann-whitney-u-test"><code>mannwhitney</code> — Mann-Whitney U test<a class="headerlink" href="#mannwhitney-mann-whitney-u-test" title="Permanent link">&para;</a></h3>
+<p>Non-parametric alternative to the t-test. Compares rank distributions;
+robust to non-normality and outliers. Prefer over <code>ttest</code> when
+<code>|skewness| &gt; 1.0</code> or for ordinal data.
+- <code>alternative</code> (default <code>"two-sided"</code>) — <code>"less"</code> or <code>"greater"</code> for
+<code>effect_size</code> = Cliff's delta:
+cliff_delta = 2U / (n_ref × n_cur) − 1
+Range [−1, 1]. Positive = ref tends to be larger than cur.
+Delegates to <code>scipy.stats.mannwhitneyu</code>.</p>
+<h3 id="levene-levenes-test-for-variance-equality"><code>levene</code> — Levene's test for variance equality<a class="headerlink" href="#levene-levenes-test-for-variance-equality" title="Permanent link">&para;</a></h3>
+<p>Tests whether variances (scale) have changed between ref and cur.
+Less sensitive to departures from normality than Bartlett's test.
+<code>effect_size</code> = variance ratio:
+variance_ratio = var_cur / var_ref   (ddof=1)
+Values above 1 mean cur has more spread; below 1 means less.
+<code>None</code> when <code>var_ref = 0</code> (constant ref).
+Delegates to <code>scipy.stats.levene</code>.</p>
+<h3 id="cramervonmises-cramer-von-mises-two-sample-test"><code>cramervonmises</code> — Cramér-von Mises two-sample test<a class="headerlink" href="#cramervonmises-cramer-von-mises-two-sample-test" title="Permanent link">&para;</a></h3>
+<p>Tests CDF equality by integrating squared CDF differences — more powerful
+than <code>ks_2samp</code> for sustained shifts across the full distribution (e.g.,
+a location shift without a spike). No effect size.
+Delegates to <code>scipy.stats.cramervonmises_2samp</code>.</p>
+<h2 id="statistics-descriptive_1">Statistics — descriptive<a class="headerlink" href="#statistics-descriptive_1" title="Permanent link">&para;</a></h2>
+<p>Descriptive metrics do not require a ref window. They operate on a
+single feature column (<code>spec.feature_name</code> is mandatory for all).
+Standard summary stats. <code>std</code> uses <code>ddof=1</code> (sample standard deviation).
+Fisher's skewness (third standardised moment). 0 = symmetric; &gt; 0 =
+right-tailed; &lt; 0 = left-tailed. Rule of thumb: <code>|skewness| &gt; 1</code> → prefer
+<code>mannwhitney</code> over <code>ttest</code> for drift detection on this feature.
+Excess kurtosis (Fisher's definition; normal distribution = 0). High positive
+values indicate heavy tails. Rule of thumb: <code>excess_kurtosis &gt; 7</code> → prefer
+<code>cramervonmises</code> over <code>ks_2samp</code>.
+- <code>q</code> (default <code>0.5</code>) — quantile probability in (0, 1). <code>q=0.5</code> returns
+  the median; <code>q=0.95</code> returns the 95th percentile.
+Total row count of the feature column, including null values. Returns <code>0</code>
+on an empty batch (no err).</p>
+<h3 id="top_category"><code>top_category</code><a class="headerlink" href="#top_category" title="Permanent link">&para;</a></h3>
+<p>Most frequent category. <code>val</code> is the frequency (proportion in [0, 1]) of
+the top category, not the category label itself.
+Tie-breaking: when two categories share the same count, the lexicographically
+earliest one (alphabetically first) is returned. This is deterministic but
+arbitrary — do not rely on it for business logic.</p>
+<h2 id="performance-estimation-without-ground-truth-cbpe_1">Performance estimation — without ground truth (CBPE)<a class="headerlink" href="#performance-estimation-without-ground-truth-cbpe_1" title="Permanent link">&para;</a></h2>
+<p>Confidence-Based Performance Estimation estimates classification metrics on
+unlabelled windows.  No ground-truth labels are needed on the cur window —
+the ref window (which has labels) is used only to fit a probability
+<strong>Core idea:</strong> if a model assigns p̂ = 0.9 to an observation, there is a 90%
+chance that observation is correctly classified.  Summing these fractional
+certainties reconstructs an estimated confusion matrix and derived metrics.
+<strong>Reference:</strong> Vandewiele et al., NannyML (2022).</p>
+<h3 id="schema-requirements">Schema requirements<a class="headerlink" href="#schema-requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>TabularSchema.proba_col</code> — must be set and present on <strong>both</strong> windows.</li>
+<li><code>TabularSchema.label_col</code> — must be present on the <strong>ref</strong> window only.</li>
+<li><code>TabularSchema.prediction_col</code> — required for <code>cbpe_accuracy</code>, <code>cbpe_f1</code>,
+  <code>cbpe_precision</code>, <code>cbpe_recall</code>; not used by <code>cbpe_auc</code>.
+Both windows require at least 100 rows. The calibrator needs enough ref
+data to fit reliably; estimates on small windows are noisy.
+estimated_accuracy = (Σ p̂ᵢ [y_pred=1]  +  Σ (1−p̂ᵢ) [y_pred=0]) / N
+Element-wise weighted sum of fractional correct predictions divided by total rows.
+Each row contributes <code>p̂ᵢ</code> if the model predicted positive (probability it is correct)
+or <code>1−p̂ᵢ</code> if predicted negative.
+Estimated ROC AUC via cumulative sum over calibrated probabilities sorted
+descending.  O(n log n).
+Raises <code>MetricComputeError</code> if estimated positive or negative mass is near
+zero (single-class degenerate case).</li>
+</ul>
+<h3 id="cbpe_f1-cbpe_precision-cbpe_recall"><code>cbpe_f1</code>, <code>cbpe_precision</code>, <code>cbpe_recall</code><a class="headerlink" href="#cbpe_f1-cbpe_precision-cbpe_recall" title="Permanent link">&para;</a></h3>
+<p>Estimated from a fractional confusion matrix:
+estimated_TP = Σ p̂_i  for i where y_pred = 1
+estimated_FP = Σ (1 - p̂_i)  for i where y_pred = 1
+estimated_FN = Σ (1 - p̂_i)  for i where y_pred = 0
+| param | default | effect |
+| <code>calibrate</code> | <code>True</code> | Fit isotonic regression calibrator on ref before estimating. Set to <code>False</code> to use raw probabilities (faster but less accurate if the model is miscalibrated). |
+- <strong>Concept drift blindness</strong>: if the relationship P(Y|X) changes but the
+  model's probabilities do not reflect it, CBPE will report stable performance.
+  Always pair with drift metrics (<code>psi</code>, <code>wasserstein</code>) to detect covariate
+- <strong>Calibration assumption</strong>: CBPE assumes the model is well-calibrated (after
+  isotonic correction on the ref). A badly miscalibrated model will
+  produce unreliable estimates even with <code>calibrate=True</code>.
+- <strong>Binary only</strong>: all five metrics assume binary classification.</p>
+<h2 id="fairness-metrics">Fairness metrics<a class="headerlink" href="#fairness-metrics" title="Permanent link">&para;</a></h2>
+<p>Fairness metrics measure group-level disparity in model predictions.  They
+operate on the cur window only (no ref required) and identify the
+protected attr via <code>spec.feature_name</code>.
+Declare sensitive attributes in <code>TabularSchema.protected_cols</code> to enable
+early validation (the Runner rejects an unknown column before any metric
+schema = TabularSchema(
+    label_col="y_true",
+    prediction_col="y_pred",
+    protected_cols=["gender", "age_group"],
+When <code>protected_cols</code> is <code>None</code>, the declaration check is skipped but the
+column must still exist in the DataFrame.</p>
+<h3 id="using-specfeature_name">Using <code>spec.feature_name</code><a class="headerlink" href="#using-specfeature_name" title="Permanent link">&para;</a></h3>
+<p>Each fairness <code>MetricSpec</code> names the protected column via <code>feature_name</code>,
+exactly as drift and stats metrics do:
+MetricSpec(name="demographic_parity", feature_name="gender", threshold=0.1)
+MetricSpec(name="equalized_odds",     feature_name="gender", threshold=0.1)
+MetricSpec(name="disparate_impact",   feature_name="gender",
+           threshold=0.8, upper_bound=False)</p>
+<h3 id="demographic_parity-demographic-parity-difference"><code>demographic_parity</code> — Demographic Parity Difference<a class="headerlink" href="#demographic_parity-demographic-parity-difference" title="Permanent link">&para;</a></h3>
+<p>DPD = max_g P(Ŷ=1 | A=g) − min_g P(Ŷ=1 | A=g)
+Maximum difference in positive prediction rates between any two groups.
+Range [0, 1].  Lower is better.  A val of 0 means perfect parity.
+<strong>Threshold guidance:</strong> values above 0.1 are worth investigating; above 0.2
+indicate substantial disparity.
+Uses <code>schema.prediction_col</code> only — no ground-truth labels required.</p>
+<h3 id="equalized_odds-equalized-odds-difference"><code>equalized_odds</code> — Equalized Odds Difference<a class="headerlink" href="#equalized_odds-equalized-odds-difference" title="Permanent link">&para;</a></h3>
+<p>EOD = max(max_g TPR_g − min_g TPR_g,  max_g FPR_g − min_g FPR_g)
+Takes the larger of the TPR gap and FPR gap across groups.  Range [0, 1].
+Lower is better.  A val of 0 means all groups have identical true positive
+and false positive rates.
+Groups with no positive (or no negative) labels in the cur window
+contribute <code>nan</code> to their TPR (or FPR) and are excluded from the gap via
+<code>nanmax</code> / <code>nanmin</code>.
+Uses both <code>schema.label_col</code> and <code>schema.prediction_col</code>.
+<strong>Threshold guidance:</strong> same as demographic parity — 0.1 as a soft limit.</p>
+<h3 id="disparate_impact-disparate-impact-ratio"><code>disparate_impact</code> — Disparate Impact Ratio<a class="headerlink" href="#disparate_impact-disparate-impact-ratio" title="Permanent link">&para;</a></h3>
+<p>DIR = min_g P(Ŷ=1 | A=g) / max_g P(Ŷ=1 | A=g)
+Ratio of the lowest to the highest positive prediction rate.  Range [0, 1].
+Higher is better (closer to 1.0 = no disparity).
+<strong>80% rule (EEOC guideline):</strong> a DIR below 0.8 is considered potentially
+discriminatory.  To apply it:
+    name="disparate_impact",
+    feature_name="gender",
+    threshold=0.8,
+    upper_bound=False,   # passes when val &gt;= threshold
+Returns 1.0 (no disparity) when all groups have a near-zero positive
+prediction rate to avoid division-by-zero.</p>
+<h2 id="nlp-llm-planned-pip-install-ayn-mlnlp">NLP / LLM <em>(planned — pip install ayn-ml[nlp])</em><a class="headerlink" href="#nlp-llm-planned-pip-install-ayn-mlnlp" title="Permanent link">&para;</a></h2>
+<p><code>bleu</code> <code>rouge1</code> <code>rouge2</code> <code>rougeL</code> <code>bert_score</code> <code>exact_match</code> <code>embedding_drift</code></p>
+<hr />
+<h2 id="premium-metrics-ayn-ml-pro">Premium Metrics — <code>ayn-ml-pro</code><a class="headerlink" href="#premium-metrics-ayn-ml-pro" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Status:</strong> All premium metrics are registered automatically when <code>ayn_ml_pro.metrics</code> is imported. Individual metric implementations are not yet complete — registration placeholders are in place.</p>
+</blockquote>
+<p>Premium metrics are registered into the <code>ayn-ml</code> metric registry on import. Once registered, use them via <code>MetricSpec</code> exactly like any built-in metric.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">ayn_ml_pro.metrics</span>  <span class="c1"># registers all premium metrics</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ayn_ml.core.spec</span><span class="w"> </span><span class="kn">import</span> <span class="n">MetricSpec</span><span class="p">,</span> <span class="n">MonitoringPlan</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">plan</span> <span class="o">=</span> <span class="n">MonitoringPlan</span><span class="p">(</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_monitor&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">MetricSpec</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;toxicity&quot;</span><span class="p">),</span> <span class="n">MetricSpec</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;llm_faithfulness&quot;</span><span class="p">)],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="safety-metrics">Safety metrics<a class="headerlink" href="#safety-metrics" title="Permanent link">&para;</a></h3>
+<p><strong>Module:</strong> <code>ayn_ml_pro.metrics.safety</code></p>
+<p><strong>Extra required:</strong> <code>pip install "ayn-ml-pro[llm-openai]"</code> or <code>pip install "ayn-ml-pro[llm-anthropic]"</code></p>
+<table>
+<thead>
+<tr>
+<th>Metric name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toxicity</code></td>
+<td>Fraction of model outputs classified as toxic by a safety model</td>
+</tr>
+<tr>
+<td><code>hallucination_rate</code></td>
+<td>Fraction of outputs flagged as hallucinations against a grounding corpus</td>
+</tr>
+</tbody>
+</table>
+<h3 id="llm-judge-metrics">LLM-judge metrics<a class="headerlink" href="#llm-judge-metrics" title="Permanent link">&para;</a></h3>
+<p><strong>Module:</strong> <code>ayn_ml_pro.metrics.llm_judge</code></p>
+<p><strong>Extra required:</strong> <code>pip install "ayn-ml-pro[llm-openai]"</code> or <code>pip install "ayn-ml-pro[llm-anthropic]"</code></p>
+<p>Scores model outputs using a language model judge. Suitable for RAG pipelines, chatbots, and generative models where traditional metrics are not applicable.</p>
+<table>
+<thead>
+<tr>
+<th>Metric name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>llm_relevance</code></td>
+<td>Relevance of the model output to the input prompt, scored by an LLM judge</td>
+</tr>
+<tr>
+<td><code>llm_faithfulness</code></td>
+<td>Factual faithfulness of the output to a grounding context, scored by an LLM judge</td>
+</tr>
+<tr>
+<td><code>llm_coherence</code></td>
+<td>Linguistic coherence and fluency score</td>
+</tr>
+</tbody>
+</table>
+<h3 id="agent-evaluation-metrics">Agent evaluation metrics<a class="headerlink" href="#agent-evaluation-metrics" title="Permanent link">&para;</a></h3>
+<p><strong>Module:</strong> <code>ayn_ml_pro.metrics.agent</code></p>
+<p>Evaluates agentic systems where the model takes sequences of actions (tool calls, reasoning steps) to complete a task.</p>
+<blockquote>
+<p><code>task_completion_rate</code>, <code>tool_success_rate</code>, <code>step_count</code>, <code>avg_tokens</code>, <code>avg_latency_ms</code>, and <code>avg_cost_usd</code> are registered by the <code>ayn-ml</code> package — use them directly without importing <code>ayn_ml_pro.metrics</code>.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Metric name</th>
+<th>Description</th>
+<th>Ground truth required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>step_efficiency</code></td>
+<td>Ratio of actual steps to optimal step count</td>
+<td>Yes (ground-truth traces)</td>
+</tr>
+<tr>
+<td><code>goal_adherence</code></td>
+<td>LLM-judged score for how closely the agent followed the stated goal</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h3 id="llm-metric-timeouts">LLM metric timeouts<a class="headerlink" href="#llm-metric-timeouts" title="Permanent link">&para;</a></h3>
+<p>LLM-backed metrics (safety, judge, agent <code>goal_adherence</code>) involve external API calls and may be slow. Set a timeout via <code>MetricSpec.params</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">MetricSpec</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;llm_faithfulness&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">})</span>  <span class="c1"># 30 seconds</span>
+</code></pre></div>
+<p>If the call exceeds the timeout, the metric result is recorded as an error in <code>MonitoringReport.errors</code> — the run continues for all other metrics.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../schemas/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Schemas">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Schemas
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../advisor/" class="md-footer__link md-footer__link--next" aria-label="Next: Metric Advisor">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Metric Advisor
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Kevek ML — Apache 2.0 License
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/Kevek-ml/ayn-ml" target="_blank" rel="noopener" title="ayn-ml on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://pypi.org/project/ayn-ml/" target="_blank" rel="noopener" title="ayn-ml on PyPI" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6M286.2 444.7a20.4 20.4 0 1 1 0-40.7 20.4 20.4 0 1 1 0 40.7M167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4m-6.6-183.4a20.4 20.4 0 1 1 0 40.8 20.4 20.4 0 1 1 0-40.8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
