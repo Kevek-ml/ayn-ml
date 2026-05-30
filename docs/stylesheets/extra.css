@@ -1,0 +1,279 @@
+/* ─── ayn-ml custom theme ────────────────────────────────────────────────────
+   Palette: warm cream (#F5F0E8) · burnt orange (#C4502A) · near-black (#1A1A1A)
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Primary colour (burnt orange) */
+:root {
+  --md-primary-fg-color:        #C4502A;
+  --md-primary-fg-color--light: #d9724a;
+  --md-primary-fg-color--dark:  #9e3f20;
+  --md-primary-bg-color:        #ffffff;
+  --md-accent-fg-color:         #C4502A;
+  --md-accent-fg-color--transparent: rgba(196, 80, 42, 0.1);
+}
+
+/* Background: warm cream */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color:          #F5F0E8;
+  --md-default-fg-color:          #1A1A1A;
+  --md-default-fg-color--light:   rgba(26, 26, 26, 0.6);
+  --md-default-fg-color--lighter: rgba(26, 26, 26, 0.3);
+  --md-default-fg-color--lightest: rgba(26, 26, 26, 0.12);
+
+  /* Code block surfaces: slightly darker cream */
+  --md-code-bg-color:    #EDE8DF;
+  --md-code-fg-color:    #2a2a2a;
+
+  /* Admonition notes inherit accent */
+  --md-admonition-icon--note: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 9h2V7h-2m1 13c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m-1 15h2v-6h-2v6Z"/></svg>');
+
+  /* Footer */
+  --md-footer-bg-color:       #1A1A1A;
+  --md-footer-bg-color--dark: #111111;
+  --md-footer-fg-color:       rgba(255, 255, 255, 0.87);
+  --md-footer-fg-color--light: rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────── */
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset h1 {
+  font-size: 2rem;
+  color: #1A1A1A;
+}
+
+/* Inline code: muted warm tone */
+.md-typeset code:not(.md-code__content) {
+  background: #EDE8DF;
+  color: #C4502A;
+  border-radius: 3px;
+  padding: 0.05em 0.25em;
+}
+
+/* ─── Navigation ─────────────────────────────────────────────────────────── */
+
+.md-nav__title {
+  font-weight: 700;
+}
+
+/* Active nav item */
+.md-nav__item--active > .md-nav__link {
+  color: #C4502A;
+  font-weight: 600;
+}
+
+/* Tab bar */
+.md-tabs {
+  background-color: #1A1A1A;
+}
+
+.md-tabs__link {
+  opacity: 0.7;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  opacity: 1;
+  color: #F5F0E8;
+}
+
+.md-tabs__link--active {
+  border-bottom: 2px solid #C4502A;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+
+.md-header {
+  background-color: #1A1A1A;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.md-header__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #F5F0E8;
+}
+
+/* ─── Hero section (index page) ──────────────────────────────────────────── */
+
+.ayn-hero {
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+
+.ayn-hero__eyebrow {
+  display: inline-block;
+  background: rgba(196, 80, 42, 0.12);
+  color: #C4502A;
+  border-radius: 100px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.ayn-hero__title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 1rem;
+  color: #1A1A1A;
+}
+
+.ayn-hero__title em {
+  color: #C4502A;
+  font-style: italic;
+}
+
+.ayn-hero__sub {
+  font-size: 1.15rem;
+  color: rgba(26, 26, 26, 0.65);
+  max-width: 540px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+/* Install badge */
+.ayn-install {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1A1A1A;
+  color: #F5F0E8;
+  border-radius: 8px;
+  padding: 0.6rem 1.25rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.ayn-install__label {
+  color: rgba(245, 240, 232, 0.5);
+  font-size: 0.75rem;
+  margin-right: 0.25rem;
+}
+
+/* ─── Feature grid ───────────────────────────────────────────────────────── */
+
+.ayn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.ayn-card {
+  background: #EDEAE1;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: box-shadow 0.15s;
+}
+
+.ayn-card:hover {
+  box-shadow: 0 4px 16px rgba(26, 26, 26, 0.08);
+}
+
+.ayn-card__icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ayn-card__title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 0.4rem;
+  color: #1A1A1A;
+}
+
+.ayn-card__desc {
+  font-size: 0.9rem;
+  color: rgba(26, 26, 26, 0.65);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ─── Comparison table ───────────────────────────────────────────────────── */
+
+.md-typeset table:not([class]) th {
+  background-color: #1A1A1A;
+  color: #F5F0E8;
+}
+
+.md-typeset table:not([class]) td {
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+
+.md-typeset .md-button {
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.md-typeset .md-button--primary {
+  background-color: #C4502A;
+  border-color: #C4502A;
+  color: #ffffff;
+}
+
+.md-typeset .md-button--primary:hover {
+  background-color: #9e3f20;
+  border-color: #9e3f20;
+}
+
+/* ─── Search ─────────────────────────────────────────────────────────────── */
+
+.md-search__form {
+  border-radius: 8px;
+}
+
+/* ─── Code blocks ────────────────────────────────────────────────────────── */
+
+.md-typeset pre > code {
+  border-radius: 8px;
+}
+
+/* ─── Admonitions ────────────────────────────────────────────────────────── */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 8px;
+}
+
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-color: #C4502A;
+}
+
+.md-typeset .admonition.note > .admonition-title,
+.md-typeset details.note > summary {
+  background-color: rgba(196, 80, 42, 0.1);
+}
+
+.md-typeset .admonition.note > .admonition-title::before,
+.md-typeset details.note > summary::before {
+  background-color: #C4502A;
+}
+
+/* ─── Responsive tweaks ──────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .ayn-hero__title {
+    font-size: 2rem;
+  }
+
+  .ayn-grid {
+    grid-template-columns: 1fr;
+  }
+}

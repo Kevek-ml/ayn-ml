@@ -1,0 +1,43 @@
+name: Back-port to monorepo
+
+# Triggers only on merged PRs — never on direct pushes from the sync action,
+# which would cause an infinite loop.
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  backport:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply merged PR to monorepo
+        env:
+          MONOREPO_TOKEN: ${{ secrets.MONOREPO_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          git clone \
+            https://x-access-token:${MONOREPO_TOKEN}@github.com/Kevek-ml/ayn-ml-pro.git \
+            monorepo
+
+          cd monorepo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Apply the merged PR patch with path rewriting into packages/ayn-ml/
+          # Note: git am handles simple linear patches reliably.
+          # Multi-commit or rename-heavy PRs may require manual intervention.
+          set -e
+          curl -fL "https://github.com/Kevek-ml/ayn-ml/pull/${PR_NUMBER}.patch" \
+            | git am --directory packages/ayn-ml \
+                     --committer-date-is-author-date \
+          || {
+            git am --abort
+            echo "::error::git am failed for PR #${PR_NUMBER} (${PR_TITLE}). Apply manually: gh pr diff ${PR_NUMBER} | git apply --directory packages/ayn-ml"
+            exit 1
+          }
+
+          git push origin main

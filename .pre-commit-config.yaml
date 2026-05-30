@@ -1,0 +1,20 @@
+repos:
+  # ── Lint + format (pre-commit) ────────────────────────────────────────────
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.0
+    hooks:
+      - id: ruff          # lint — catches F401 unused imports, E/F/I/UP/D rules
+        args: [--fix]
+      - id: ruff-format   # format — Black-compatible auto-formatter
+
+  # ── Full test suite (pre-push) ────────────────────────────────────────────
+  # Runs only on `git push`, not on every commit, to keep commit latency low.
+  # Requires the project virtualenv to be active or `poetry run` to be available.
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: poetry run pytest tests/ -q --tb=short
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
